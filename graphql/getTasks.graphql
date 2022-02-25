@@ -1,0 +1,7 @@
+  query getTasks($status: TaskStatus) {
+    getTasks(status: $status) {
+      id
+      title
+      status
+    }
+  }

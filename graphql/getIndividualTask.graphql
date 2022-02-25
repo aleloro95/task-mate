@@ -1,0 +1,7 @@
+query getIndividualTask($id: Int!) {
+  getIndividualTask(id: $id) {
+    id
+    title
+    status
+  }
+}
