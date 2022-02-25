@@ -37,7 +37,7 @@ export type MutationDeleteTaskArgs = {
 
 
 export type MutationUpdateTaskArgs = {
-  input?: InputMaybe<UpdateTaskInput>;
+  input: UpdateTaskInput
 };
 
 export type Query = {
@@ -169,7 +169,7 @@ export type ResolversParentTypes = {
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationCreateTaskArgs, 'input'>>;
   deleteTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<MutationDeleteTaskArgs, 'id'>>;
-  updateTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, Partial<MutationUpdateTaskArgs>>;
+  updateTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, MutationUpdateTaskArgs>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
