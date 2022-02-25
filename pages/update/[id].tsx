@@ -17,13 +17,12 @@ const UpdateTask = () => {
   const id =
     typeof router.query?.id === "string" ? parseInt(router.query.id, 10) : NaN
 
-  if (!id) {
-    return <Error statusCode={403} />
-  }
-
   const { data, loading, error } = useGetIndividualTaskQuery({
     variables: { id }
   })
+  if (!id) {
+    return <Error statusCode={403} />
+  }
   const task = data?.getIndividualTask
 
   return loading ? (

@@ -1,5 +1,5 @@
 import { ApolloCache, FetchResult, Reference } from "@apollo/client"
-import { DeleteTaskMutation } from "../generated/graphql-frontend"
+import { DeleteTaskMutation, TaskStatus } from "../generated/graphql-frontend"
 
 // Helper functions
 
@@ -22,4 +22,10 @@ export const updateCache = (cache: ApolloCache<any>, result: resultType) => {
       }
     })
   }
+}
+
+export const mapStatus = (statusString: string | string[] | undefined): TaskStatus | undefined => {
+  let isActive = statusString === 'active'
+  let isCompleted = statusString === 'completed'
+  return isActive ? TaskStatus.Active : isCompleted ? TaskStatus.Completed : undefined
 }

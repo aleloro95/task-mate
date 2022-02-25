@@ -15,6 +15,7 @@ import styles from "../styles/Home.module.css"
 import { useRouter } from "next/router"
 import Error from "next/error"
 import { GetServerSideProps } from "next"
+import { mapStatus } from "../lib/helpers"
 
 const isTaskStatus = (value: string | string[]): value is TaskStatus =>
   Object.values(TaskStatus).includes(value as TaskStatus)
@@ -22,14 +23,8 @@ const isTaskStatus = (value: string | string[]): value is TaskStatus =>
 export default function Home() {
   // Hooks
   const router = useRouter()
-  const status =
-    typeof router.query.status === "string" ? router.query.status : undefined
-  if (status !== undefined && !isTaskStatus(status)) {
-    return <Error statusCode={404} />
-  }
-
+  const status = mapStatus(router.query.status)
   const prevStatus = useRef(status)
-
   useEffect(() => {
     prevStatus.current = status
   }, [status])
@@ -39,6 +34,10 @@ export default function Home() {
     fetchPolicy:
       prevStatus.current === status ? "cache-first" : "cache-and-network"
   })
+  if (status !== undefined && !isTaskStatus(status)) {
+    return <Error statusCode={404} />
+  }
+
   const tasks = results.data?.getTasks
   const tasksExistAndDefined: boolean | undefined = tasks && tasks.length > 0
 
